@@ -5,22 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Team {
+public class Product {
 
     @Id @GeneratedValue
-    @Column(name = "TEAM_ID")
     private Long id;
+
     private String name;
 
-    // 다대일 양방향 매핑.
-//    @OneToMany(mappedBy = "team")
+//    @ManyToMany(mappedBy = "products")  // 다대다 양방향 매핑.  // 그러나 실무에서 사용x
 //    private List<Member> members = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = "TEAM_ID")
-    private List<Member> members = new ArrayList<>();
+    @OneToMany(mappedBy = "product")
+    private List<MemberProduct > memberProducts = new ArrayList<>();
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -32,13 +32,5 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Member> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<Member> members) {
-        this.members = members;
     }
 }
